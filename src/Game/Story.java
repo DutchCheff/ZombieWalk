@@ -1,6 +1,9 @@
 package Game;
 
 import Player.Player;
+import Player.armyKnife;
+import Player.M9_pistol;
+import World.SuperMonster
 
 import javax.swing.*;
 
@@ -115,6 +118,18 @@ public class Story {
         ui.choice2.setText("No....");
 
         game.nextPosition1 = "getSoldiersGun";
+        game.nextPosition2 = "getSoldiersKnife";
+    }
+    public void getM9(){
+        player.currentWeapon = new M9_pistol();
+        ui.mainTextArea.setText("The soldier tosses his sidearm to you. \nSoldier: 'Start shooting those bastards'");
+        ui.choice1.setText(">");
+    }
+    public void getKnife() {
+        player.currentWeapon = new armyKnife();
+        ui.mainTextArea.setText("The soldier puts his knife in your hand. \nSoldier: 'They come to close for my gun and you start stabbing'");
+        ui.choice1.setText(">");
+        game.nextPosition1 = "knifeFight";
     }
 
 }
