@@ -54,7 +54,9 @@ public class Story {
 //            FrontDoor no Soldiers
             case "frontDoorNoSoldier": frontDoorNoSoldier(); break;
             case "leaveElevator": leaveElevator(); break;
+            case "elevatorChaos": elevatorChaos(); break;
 
+            case "leaveStaircase": leaveStaircase(); break;
 
 //            FrontDoor cases
             case "frontDoor": frontDoor(); break;
@@ -547,6 +549,13 @@ public class Story {
         game.nextPosition1 = "Death";
     }
 
+    public void leaveStaircase() {
+        ui.mainTextArea.setText("When you arrive downstairs and open the door to the entry hall you see the doorman dead at his desk.\n\nWhat do you do?");
+        ui.choice1.setText("You walk to the front door and go outside");
+        ui.choice2.setText("You walk to the doorman and search his body");
+
+        game.nextPosition1 = "frontDoorConvoy";
+    }
 
 
 //    DEATH
