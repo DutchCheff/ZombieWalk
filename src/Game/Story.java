@@ -4,6 +4,7 @@ package Game;
 import Player.Player;
 import Player.armyKnife;
 import Player.M9_pistol;
+import Player.Glock_18;
 import Player.M4_AssaultRifle;
 import World.SuperMonster;
 import World.Zombie;
@@ -40,12 +41,27 @@ public class Story {
         switch (nextPosition) {
             case "apartment": apartmentStart(); break;
             case "window": window(); break;
+
+
+//            TV Cases
             case "tv": tv(); break;
-//            Front door cases
+            case "vault": vault(); break;
+//            Fire Escape
+            case "fireEscape": fireEscape(); break;
+            case "exitAlleyRight": exitAlleyRight(); break;
+            case "engageConvoy": engageConvoy(); break;
+            case "runToTackle": runToTackle(); break;
+//            FrontDoor no Soldiers
+            case "frontDoorNoSoldier": frontDoorNoSoldier(); break;
+            case "leaveElevator": leaveElevator(); break;
+
+
+//            FrontDoor cases
             case "frontDoor": frontDoor(); break;
             case "exitWithSoldier": exitWithSoldier(); break;
             case "alley": alley(); break;
             case "waitAndSee": waitAndSee(); break;
+
 //            M9 fight
             case "getM9": getM9(); break;
             case "zombieM9Close": zombieM9Close(); break;
@@ -53,7 +69,7 @@ public class Story {
             case "M9PlayerAttacks": M9PlayerAttacks(); break;
             case "M9ZombieAttacks": M9ZombieAttacks(); break;
             case "moveOnwardFrontDoorOne": moveOnwardFrontDoorOne(); break;
-//          onward frontdoor One
+//            onward frontDoor One
             case "fightConvoy": fightConvoy(); break;
             case "soldierDown": soldierDown(); break;
             case "helpSoldier": helpSoldier(); break;
@@ -123,22 +139,12 @@ public class Story {
         game.nextPosition2 = "frontDoor";
         game.nextPosition3 = "tv";
     }
-    public void tv() {
-        ui.mainTextArea.setText("Your TV turns on. You see a video from the president urging people to stay calm, follow quarantine instructions from the army and follow evacuation plans");
-        ui.choice1.setText("You get your phone and call your brother");
-        ui.choice2.setText("You walk over to the door and open it");
-        ui.choice3.setText("You walk to you vault to arm yourself");
-
-        game.nextPosition1 = "phone";
-        game.nextPosition2 = "frontDoor";
-        game.nextPosition3 = "vault";
-    }
 
 
 
 
-//    Front door Story Line
 
+//    Frontdoor Story Line
     public void frontDoor() {
         ui.mainTextArea.setText("Upon opening the door you see a soldier. \n\n'Thanks for opening the door. Please follow me, I will bring you to a truck that goes to the designated Quarantine zone'");
         ui.choice1.setText("Follow the soldier");
@@ -365,6 +371,7 @@ public class Story {
             game.nextPosition1 = "Death";
         }
     }
+
 //    Move onward Two
     public void moveOnwardFrontDoorTwo() {
         ui.mainTextArea.setText("You look up after the killing blow on the Zombie just to see that the Soldier has bled to his death after having killed the zombie that jumped him.\n\nWhat do you do");
@@ -454,6 +461,93 @@ public class Story {
 
         game.nextPosition1 = "Victory";
     }
+
+//    TV Storyline
+    public void tv() {
+        ui.mainTextArea.setText("Your TV turns on. You see a video from the president urging people to stay calm, follow quarantine instructions from the army and follow evacuation plans");
+        ui.choice1.setText("You get your phone and call your brother");
+        ui.choice2.setText("You walk over to the door and open it");
+        ui.choice3.setText("You walk to your home-vault to arm yourself");
+
+        game.nextPosition1 = "phone";
+        game.nextPosition2 = "frontDoor";
+        game.nextPosition3 = "vault";
+    }
+    public void vault() {
+        player.currentWeapon = new Glock_18();
+        ui.weaponNameLabel.setText(player.currentWeapon.name);
+        ui.mainTextArea.setText("You unlock your home-vault and find your Glock-18 Pistol with three magazines containing ammo");
+        ui.choice1.setText("Call your brother");
+        ui.choice2.setText("Wait until the person at the door leaves to exit your apartment");
+        ui.choice3.setText("Exit your apartment through you fire escape staircase outside your window");
+
+        game.nextPosition1 = "phone";
+        game.nextPosition2 = "frontDoorNoSoldier";
+        game.nextPosition3 = "fireEscape";
+    }
+//    FIRE ESCAPE
+    public void fireEscape() {
+        ui.mainTextArea.setText("You climb down your fire escape and land in the alley on the side of your apartment complex");
+        ui.choice1.setText("Go right, towards the entrance of your apartment complex");
+        ui.choice2.setText("Go left, away from your apartment complex");
+        ui.choice3.setText("");
+
+        game.nextPosition1 = "exitAlleyRight";
+        game.nextPosition2 = "exitAlleyLeft";
+
+    }
+    public void exitAlleyRight() {
+        ui.mainTextArea.setText("You come out of the alley and see a convoy of army trucks standing close to the entrance of your apartment complex");
+        ui.choice1.setText("Go back and exit the alley on the other side");
+        ui.choice2.setText("Walk towards the convoy");
+        ui.choice3.setText("");
+
+        game.nextPosition1 = "engageConvoy";
+        game.nextPosition2 = "exitAlleyLeft";
+    }
+    public void engageConvoy() {
+        ui.mainTextArea.setText("You start walking towards the convoy as you see a man coming out of an alley on the opposite side of the street.\nThe way he walks gives away he is probably armed with a rifle concealed under his Jacket\n\nWhat do you do");
+        ui.choice1.setText("You aim for the guy to shoot him before he can open fire");
+        ui.choice2.setText("You sprint to him to see if you can tackle him");
+        ui.choice3.setText("You go back in the alley you came from and walk to the other exit of the alley");
+
+        game.nextPosition1 = "safeConvoy";
+        game.nextPosition2 = "runToTackle";
+        game.nextPosition3 = "exitAlleyLeft";
+    }
+    public void runToTackle() {
+        ui.mainTextArea.setText("You sprint to him, only te see him toss a grenade at the convoy. The grenade lands as the guy opens fire.\n\nThe explosion triggers a chain explosion of the convoy trucks exploding. You get blown to ground from the shock. Before you can get up the street get swarmed by Zombies");
+        ui.choice1.setText(">");
+        ui.choice2.setText("");
+        ui.choice3.setText("");
+
+        game.nextPosition1 = "Death";
+    }
+//    FRONTDOOR NO SOLDIER
+    public void frontDoorNoSoldier() {
+        ui.mainTextArea.setText("You enter the hallway as the elevator goes back down. Your older female neighbour comes out of her apartment and asks:\n'Would you be a dear and help me down to the lobby in the elevator?'\n\nWhat do you do?");
+        ui.choice1.setText("You leave her where she is standing and go down the stairs");
+        ui.choice2.setText("You help her to the elevator, wait till it comes back up and together enter the elevator");
+
+        game.nextPosition1 = "leaveStaircase";
+        game.nextPosition2 = "leaveElevator";
+    }
+    public void leaveElevator() {
+        ui.mainTextArea.setText("As the elevator starts going down you hear a loud scream coming from multiple floors up. The scream comes in fast and as it seems right next to you the hatch on the ceiling of the elevator breaks open as the janitor falls between you and your neighbour");
+        ui.choice1.setText(">");
+        ui.choice2.setText("");
+
+        game.nextPosition1 = "elevatorChaos";
+    }
+    public void elevatorChaos() {
+        ui.mainTextArea.setText("The janitor slowly starts moving again. He stands back up and you see his eyes dull and grey. As he snaps his neck in place again he sees you and in a flash his teeth are drilled in to your neck, you choke on your own blood and life fades away.");
+        ui.choice1.setText(">");
+        ui.choice2.setText("");
+
+        game.nextPosition1 = "Death";
+    }
+
+
 
 //    DEATH
     public void Death() {
