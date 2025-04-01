@@ -1,13 +1,16 @@
 package Game;
 
+
 import Player.Player;
 import Player.armyKnife;
 import Player.M9_pistol;
+import Player.M4_AssaultRifle;
 import World.SuperMonster;
 import World.Zombie;
 import Player.fists;
 
 import javax.swing.*;
+import java.awt.*;
 
 public class Story {
     Game game;
@@ -50,6 +53,14 @@ public class Story {
             case "M9PlayerAttacks": M9PlayerAttacks(); break;
             case "M9ZombieAttacks": M9ZombieAttacks(); break;
             case "moveOnwardFrontDoorOne": moveOnwardFrontDoorOne(); break;
+//          onward frontdoor One
+            case "fightConvoy": fightConvoy(); break;
+            case "soldierDown": soldierDown(); break;
+            case "helpSoldier": helpSoldier(); break;
+            case "holdSoldier": holdSoldier(); break;
+            case "leftExitAlleySoldier": leftExitAlleySoldier(); break;
+            case "searchPoliceCar": searchPoliceCar(); break;
+            case "drivePoliceCarSoldier": drivePoliceCarSoldier(); break;
 
 //          Knife Fight
             case "getKnife": getKnife(); break;
@@ -57,16 +68,21 @@ public class Story {
             case "startKnifeFight": startKnifeFight(); break;
             case "knifePlayerAttacks": knifePlayerAttacks(); break;
             case "knifeZombieAttacks": knifeZombieAttacks(); break;
+//          Onward frontdoor Two
             case "moveOnwardFrontDoorTwo": moveOnwardFrontDoorTwo(); break;
             case "lootingSoldier": lootingSoldier(); break;
             case "backInside": backInside(); break;
             case "frontDoorConvoy": frontDoorConvoy(); break;
-            case "safeConvoy": safeConvoy(); break;
             case "screamAtConvoy": screamAtConvoy(); break;
             case "explodeConvoy": explodeConvoy(); break;
+            case "safeConvoy": safeConvoy(); break;
+            case "handcuffedConvoy": handcuffedConvoy(); break;
+            case "aliveButHow": aliveButHow(); break;
+            case "endKnife": endKnife(); break;
 
-            case "restart": play(); break;
+            case "Restart": play(); break;
             case "Death": Death(); break;
+            case "Victory": Victory(); break;
         }
     }
     public void play() {
@@ -74,7 +90,7 @@ public class Story {
         String playerName = JOptionPane.showInputDialog(ui.mainTextPanel, "What is your first and last name?");
         player.name = playerName;
         ui.playerNameLabel.setText(playerName);
-
+        ui.mainTextArea.setText("");
         ui.choice1.setText(">");
         ui.choice2.setText("");
         ui.choice3.setText("");
@@ -224,10 +240,68 @@ public class Story {
             game.nextPosition1 = "Death";
         }
     }
+
+//    Move onward One
     public void moveOnwardFrontDoorOne() {
+        ui.mainTextArea.setText("You both finish the group of zombies off and push onward to the exit of the alley. Around the corner you see the trucks and soldiers that belong to the Quarantine Zone convoy");
+        ui.choice1.setText(">");
+        ui.choice2.setText("");
 
-    }
+        game.nextPosition1 = "fightConvoy";
+}
+    public void fightConvoy() {
+        ui.mainTextArea.setText("A fight breaks loose, gunshots are fired and an explosion of a grenade follows. The trucks explode and chaos follows.\n\nThe soldier starts running to the convoy.\nWhat do you do?");
+        ui.choice1.setText("Watch the chaos unfold");
+        ui.choice2.setText("Stop the soldier from running to the convoy");
 
+        game.nextPosition1 = "soldierDown";
+        game.nextPosition2 = "holdSoldier";
+}
+    public void soldierDown() {
+        ui.mainTextArea.setText("The soldier continues running to the convoy.\nAbout 15 meters away from you he gets jumped by a zombie coming out of the apartment complex.\n\nWhat do you do?");
+        ui.choice1.setText("Run to the soldier to try and save him");
+        ui.choice2.setText("Run back in the alley and towards the opposing exit of the alley");
+
+        game.nextPosition1 = "helpSoldier";
+        game.nextPosition2 = "leftExitAlley";
+}
+    public void helpSoldier() {
+        ui.mainTextArea.setText("You run to the soldier to try and save him. Upon arriving you see that the Zombie is the doorman from the apartment complex. You are so stunned by this that the zombie has the time to jump on you and shred your throat to bits.");
+        ui.choice1.setText(">");
+        ui.choice2.setText("");
+
+        game.nextPosition1 = "Death";
+}
+    public void holdSoldier() {
+        ui.mainTextArea.setText("You hold the soldier back and show him the chaos, his fellow soldiers down, people screaming on the ground.\n\nNo two seconds later zombies come from buildings and from alleyways to feast on the disaster.\nYou and the soldier have no way but the opposite alley exit");
+        ui.choice1.setText("You move back in to the alley");
+        ui.choice2.setText("");
+
+        game.nextPosition1 = "leftExitAlleySoldier";
+}
+    public void leftExitAlleySoldier() {
+        ui.mainTextArea.setText("You and the soldier come to the other end of the alley. On the left on the road you see that a schoolbus has crashed in to other cars and is completely blocking the road.\nYou take the right and after one minute of walking find a police car.\n\nWhat do you do?");
+        ui.choice1.setText("Get in the car and start driving");
+        ui.choice2.setText("Search the car before getting in");
+
+        game.nextPosition1 = "drivePoliceCarSoldier";
+        game.nextPosition2 = "searchPoliceCar";
+}
+    public void searchPoliceCar() {
+        player.currentWeapon = new M4_AssaultRifle();
+        ui.mainTextArea.setText("You find an M4 Assault Rifle with 2 magazines containing bullets");
+        ui.choice1.setText("Get in the car and start driving");
+        ui.choice2.setText("");
+
+        game.nextPosition1 = "drivePoliceCarSoldier";
+}
+    public void drivePoliceCarSoldier() {
+        ui.mainTextArea.setText("The soldier guides your way to the Quarantine Zone.\nArriving there you find out the soldier you've travelled with is a high ranking officer.\n\nYou get taken in to the ranks and quickly work your way up. When the Vaccine arrives you stay with the standing army and help the region getting back to the life it was before the outbreak");
+        ui.choice1.setText(">");
+        ui.choice2.setText("");
+
+        game.nextPosition1 = "Victory";
+}
 
 //    Knife Fight
     public void getKnife() {
@@ -338,15 +412,65 @@ public class Story {
     }
     public void explodeConvoy() {
         ui.mainTextArea.setText("The grenade flies through the air before the soldiers can even hear you scream. When they notice you pointing and screaming at the man in the alley, the grenade lands, rolls and explodes. The trucks explode one after the other.\nThe blast of the explosion blasts you back in the building. Your head lands on the desk and breaks your neck.");
+        ui.choice1.setText(">");
+        ui.choice2.setText("");
+
+        game.nextPosition1 = "Death";
+    }
+    public void safeConvoy() {
+        int random = new java.util.Random().nextInt(11);
+        if (random < 5) {
+            ui.mainTextArea.setText("You shoot, but barely hit. The man hears the bullet whizz past and throws the grenade at the Convoy. The grenade explodes and the trucks go with it. The massive explosion blasts you back in to the entry hall and you hit your neck on the desk.");
+            ui.choice1.setText(">");
+            ui.choice2.setText("");
+
+            game.nextPosition1 = "Death";
+        } else {
+            ui.mainTextArea.setText("You hit the man in the middle of his eyes. He drops down on the floor.\n\nThe soldiers come to arms hearing the shot. You get swarmed by two soldiers.");
+            ui.choice1.setText(">");
+            ui.choice2.setText("");
+
+            game.nextPosition1 = "handcuffedConvoy";
+        }
+    }
+    public void handcuffedConvoy() {
+        ui.mainTextArea.setText("You get handcuffed by the soldiers and put in to a truck from the convoy.\n\n You try to explain why you shot the man but they won't listen to you.\n\nAt the Quarantine Zone you get put in prison and sit out your days in silence.");
+        ui.choice1.setText(">");
+        ui.choice2.setText("");
+
+        game.nextPosition1 = "aliveButHow";
+    }
+    public void aliveButHow() {
+        ui.mainTextArea.setText("After a year or two in prison the vaccine comes out. Everyone gets vaccinated as soon as possible and you get released by reasoning special circumstances. \n\nYou roam around the quarantine zone and find the forest cabin of your brother.\nSadly on inspecting inside you find the remains of what you believe to be your brother.");
+        ui.choice1.setText(">");
+        ui.choice2.setText("");
+
+        game.nextPosition1 = "endKnife";
+    }
+    public void endKnife() {
+        ui.mainTextArea.setText("You bury your brothers remains and live out the rest of your days in his cabin, becoming self providing and walled off for the remaining Zombies roaming the wild");
+        ui.choice1.setText(">");
+        ui.choice2.setText("");
+
+        game.nextPosition1 = "Victory";
     }
 
 //    DEATH
     public void Death() {
         vm.showTitleScreen();
         ui.titleNameLabel.setText("GAME OVER");
+        ui.titleNameLabel.setForeground(Color.red);
         ui.startButton.setText("Restart");
 
-        game.nextPosition1 = "restart";
+        game.nextPosition1 = "Restart";
+    }
+//    Victory
+    public void Victory() {
+        vm.victoryScreen();
+        ui.victoryTextArea.setText("You've finished the game alive in one of the ways possible!!\n\nWant to try again?");
+        ui.startButton.setText("Restart");
+
+        game.nextPosition1 = "Restart";
     }
 }
 

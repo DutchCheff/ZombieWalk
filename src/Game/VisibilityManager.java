@@ -15,6 +15,7 @@ public class VisibilityManager {
         ui.mainTextPanel.setVisible(false);
         ui.choiceButtonPanel.setVisible(false);
         ui.playerPanel.setVisible(false);
+        ui.victoryPanel.setVisible(false);
     }
     public void titleMainScreen(){
 
@@ -34,5 +35,14 @@ public class VisibilityManager {
         ui.mainTextPanel.setVisible(true);
         ui.choiceButtonPanel.setVisible(true);
         ui.playerPanel.setVisible(true);
+    }
+    public void victoryScreen(){
+        ui.victoryPanel.setVisible(true);
+        ui.startButton.setVisible(true);
+
+        ui.mainTextPanel.setVisible(false);
+        ui.choiceButtonPanel.setVisible(false);
+        ui.playerPanel.setVisible(false);
+        ui.titleNamePanel.setVisible(false);
     }
 }

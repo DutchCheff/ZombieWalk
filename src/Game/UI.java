@@ -6,10 +6,11 @@ import java.awt.*;
 public class UI {
 
     JFrame window;
-    JPanel titleNamePanel, startButtonPanel, mainTextPanel, choiceButtonPanel, playerPanel;
+    JPanel titleNamePanel, startButtonPanel, mainTextPanel, choiceButtonPanel, playerPanel, victoryPanel;
     JLabel titleNameLabel, hpLabel, hpNumberLabel, weaponLabel, weaponNameLabel, playerLabel, playerNameLabel;
     JButton startButton, choice1, choice2, choice3, choice4;
-    JTextArea mainTextArea;
+    JTextArea mainTextArea, victoryTextArea;
+    Font victoryFont = new Font("Times New Roman", Font.BOLD, 32);
     Font titleFont = new Font("Times New Roman", Font.BOLD, 90);
     Font normalFont = new Font("Times New Roman", Font.BOLD, 26);
 
@@ -23,6 +24,22 @@ public class UI {
         window.setResizable(false);
         window.setLayout(null);
         window.getContentPane().setBackground(Color.black);
+        // VICTORY SCREEN
+
+        victoryPanel = new JPanel();
+        victoryPanel.setBounds(200, 100, 800, 300);
+        victoryPanel.setBackground(Color.black);
+        window.add(victoryPanel);
+
+        victoryTextArea = new JTextArea();
+        victoryTextArea.setEditable(false);
+        victoryTextArea.setBackground(Color.black);
+        victoryTextArea.setFont(victoryFont);
+        victoryTextArea.setLineWrap(true);
+        victoryTextArea.setWrapStyleWord(true);
+        victoryTextArea.setForeground(Color.white);
+        victoryTextArea.setBounds(200, 100, 800, 300);
+        victoryPanel.add(victoryTextArea);
 
         // TITLE SCREEN
 
