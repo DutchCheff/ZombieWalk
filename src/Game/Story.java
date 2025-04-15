@@ -41,7 +41,19 @@ public class Story {
         switch (nextPosition) {
             case "apartment": apartmentStart(); break;
             case "window": window(); break;
-
+            case "phone": phone(); break;
+            case "vaultCallBrother": vaultCallBrother(); break;
+//            EXIT ALLEY LEFT
+            case "leftExitAlley": leftExitAlley(); break;
+            case "searchPoliceCarAlone": searchPoliceCarAlone(); break;
+            case "drivePoliceCarAlone": drivePoliceCarAlone(); break;
+            case "driveOutOfTown": driveOutOfTown(); break;
+            case "goLeft": goLeft(); break;
+            case "helpStuckCar": helpStuckCar(); break;
+            case "connectCables": connectCables(); break;
+            case "goRight": goRight(); break;
+            case "carKeysLeave": carKeysLeave(); break;
+            case "forestCabin": forestCabin(); break;
 
 //            TV Cases
             case "tv": tv(); break;
@@ -57,6 +69,11 @@ public class Story {
             case "elevatorChaos": elevatorChaos(); break;
 
             case "leaveStaircase": leaveStaircase(); break;
+            case "searchDoorMan": searchDoorMan(); break;
+            case "downToGarageDoorman": downToGarageDoorman(); break;
+            case "enterDoormanCar": enterDoormanCar(); break;
+            case "driveAlone": driveAlone(); break;
+            case "driveToQuarantine": driveToQuarantine(); break;
 
 //            FrontDoor cases
             case "frontDoor": frontDoor(); break;
@@ -105,14 +122,16 @@ public class Story {
     }
     public void play() {
         defaultSetup();
-        String playerName = JOptionPane.showInputDialog(ui.mainTextPanel, "What is your first and last name?");
-        player.name = playerName;
-        ui.playerNameLabel.setText(playerName);
+
+
         ui.mainTextArea.setText("");
         ui.choice1.setText(">");
         ui.choice2.setText("");
         ui.choice3.setText("");
         ui.choice4.setText("");
+        String playerName = JOptionPane.showInputDialog(ui.mainTextPanel, "What is your first and last name?");
+        player.name = playerName;
+        ui.playerNameLabel.setText(playerName);
 
         game.nextPosition1 = "apartment";
         game.nextPosition2 = "";
@@ -131,20 +150,127 @@ public class Story {
         game.nextPosition3 = "frontDoor";
 
     }
+
+//    WINDOW STORYLINE
     public void window() {
         ui.mainTextArea.setText("You go to the window and look outside \nYou see chaos outside, cars on fire, people running and screaming and distant gunshots");
         ui.choice1.setText("You walk to your home vault to arm yourself");
         ui.choice2.setText("You walk to the door and open it");
         ui.choice3.setText("You turn on your TV to see if the news might tell you more");
+        ui.choice4.setText("Call your brother");
 
         game.nextPosition1 = "vault";
         game.nextPosition2 = "frontDoor";
         game.nextPosition3 = "tv";
+        game.nextPosition4 = "phone";
     }
+    public void phone() {
+        if (player.currentWeapon instanceof Glock_18) {
+            ui.mainTextArea.setText("You reach your brother. He tells you he has a cabin in the forest that is safe. He is stocked up with food to survive but has nothing to defend. He asks you to bring your gun and hangs up");
+            ui.choice1.setText("You grab you car keys");
+            ui.choice2.setText("You leave through the fire escape at your window");
+            ui.choice3.setText("");
+            ui.choice4.setText("");
 
+            game.nextPosition1 = "carKeysLeave";
+            game.nextPosition2 = "fireEscape";
+        } else {
+            ui.mainTextArea.setText("You reach your brother. He tells you he has a cabin in the forest that is safe. He is stocked up with food to survive but has nothing to defend. He asks you to bring your gun and hangs up");
+            ui.choice1.setText("You go to your home vault to get you gun");
+            ui.choice2.setText("");
+            ui.choice3.setText("");
+            ui.choice4.setText("");
 
+            game.nextPosition1 = "vaultCallBrother";
+        }
+    }
+    public void vaultCallBrother() {
+        player.currentWeapon = new Glock_18();
+        ui.weaponNameLabel.setText(player.currentWeapon.name);
+        ui.mainTextArea.setText("You open your vault and grab your Glock-18 and the three magazines with ammo.\n\nWhat do you do?");
+        ui.choice1.setText("You grab your car keys and go out the front door");
+        ui.choice2.setText("You leave your apartment with the fire escape at your window");
 
+        game.nextPosition1 = "carKeysLeave";
+        game.nextPosition2 = "fireEscape";
+    }
+//    EXIT ALLEY LEFT NO SOLDIER
+    public void leftExitAlley() {
+        ui.mainTextArea.setText("You run out the alley and see a crash that has happened on the left with a school bus that blocks the whole road. You go right and see a police car.\n\nWhat do you do?");
+        ui.choice1.setText("You search the trunk of the car");
+        ui.choice2.setText("You get in the car and start driving");
 
+        game.nextPosition1 = "searchPoliceCarAlone";
+        game.nextPosition2 = "drivePoliceCarAlone";
+    }
+    public void searchPoliceCarAlone() {
+        player.currentWeapon = new M4_AssaultRifle();
+        ui.weaponNameLabel.setText(player.currentWeapon.name);
+        ui.mainTextArea.setText("You find an M4 Assault Rifle with 2 magazines containing bullets");
+        ui.choice1.setText("Get in the car and start driving");
+        ui.choice2.setText("");
+
+        game.nextPosition1 = "drivePoliceCarAlone";
+    }
+    public void drivePoliceCarAlone() {
+        ui.mainTextArea.setText("You start driving to you brother's known forest cabin");
+        ui.choice1.setText(">");
+        ui.choice2.setText("");
+
+        game.nextPosition1 = "driveOutOfTown";
+    }
+    public void driveOutOfTown() {
+        ui.mainTextArea.setText("You get to a t-junction. Both left and right can take you to your brother.\n\nWhat do you do?");
+        ui.choice1.setText("Take the left");
+        ui.choice2.setText("Take the right");
+
+        game.nextPosition1 = "goLeft";
+        game.nextPosition2 = "goRight";
+    }
+    public void goLeft() {
+        ui.mainTextArea.setText("You go to the left and after a while you see a car in the distance blocking the road with the hood open and a man checking the engine.\n\nWhat do you do?");
+        ui.choice1.setText("Turn around");
+        ui.choice2.setText("Continue driving and see if you can help out");
+
+        game.nextPosition1 = "goRight";
+        game.nextPosition2 = "helpStuckCar";
+    }
+    public void helpStuckCar() {
+        ui.mainTextArea.setText("You come to a stop and step out of your car. The man at the broken down car turns around and goes:\n'Oh hi there. Can you help jump my car with some cables. It broke down and its not safe to stay here for long'\n\nWhat do you do?");
+        ui.choice1.setText("You walk to him to help connect the cables");
+        ui.choice2.setText("");
+
+        game.nextPosition1 = "connectCables";
+    }
+    public void connectCables() {
+        ui.mainTextArea.setText("You walk up to the man and help him out. As you are connecting the cables under his hood you hear other footsteps coming in. When you turn around to see what's going on you get hit in the back of the head with something pointy. Life fades out of your body");
+        ui.choice1.setText(">");
+
+        game.nextPosition1 = "Death";
+    }
+    public void goRight() {
+        ui.mainTextArea.setText("You exit the city to the right and after driving for about an hour you see the exit that goes in to the forest to the cabin of your brother");
+        ui.choice1.setText(">");
+        ui.choice2.setText("");
+
+        game.nextPosition1 = "forestCabin";
+    }
+    public void forestCabin() {
+        ui.mainTextArea.setText("You come up to the cabin and see your brother patiently waiting outside. You and your brother set up a perimeter, make the place safe. After two years you find out there is a vaccine ready and the world will slowly go back to the way it was. You and your brother life out the rest of your days in the forest");
+        ui.choice1.setText(">");
+        ui.choice2.setText("");
+
+        game.nextPosition1 = "Victory";
+    }
+    public void carKeysLeave() {
+        ui.mainTextArea.setText("You leave your apartment and go down the stairs to the garage. Here you step in to your car and start driving");
+        ui.choice1.setText(">");
+        ui.choice2.setText("");
+        ui.choice3.setText("");
+        ui.choice4.setText("");
+
+        game.nextPosition1 = "driveOutOfTown";
+    }
 
 //    Frontdoor Story Line
     public void frontDoor() {
@@ -152,9 +278,10 @@ public class Story {
         ui.choice1.setText("Follow the soldier");
         ui.choice2.setText("You slam the door in his face and lock it");
         ui.choice3.setText("");
+        ui.choice4.setText("");
 
         game.nextPosition1 = "exitWithSoldier";
-        game.nextPosition2 = "callBrother";
+        game.nextPosition2 = "apartment";
     }
     public void exitWithSoldier() {
         ui.mainTextArea.setText("You follow the soldier down the hallway, down the staircase and out of the emergency exit of the building");
@@ -297,6 +424,7 @@ public class Story {
 }
     public void searchPoliceCar() {
         player.currentWeapon = new M4_AssaultRifle();
+        ui.weaponNameLabel.setText(player.currentWeapon.name);
         ui.mainTextArea.setText("You find an M4 Assault Rifle with 2 magazines containing bullets");
         ui.choice1.setText("Get in the car and start driving");
         ui.choice2.setText("");
@@ -470,6 +598,7 @@ public class Story {
         ui.choice1.setText("You get your phone and call your brother");
         ui.choice2.setText("You walk over to the door and open it");
         ui.choice3.setText("You walk to your home-vault to arm yourself");
+        ui.choice4.setText("");
 
         game.nextPosition1 = "phone";
         game.nextPosition2 = "frontDoor";
@@ -482,6 +611,7 @@ public class Story {
         ui.choice1.setText("Call your brother");
         ui.choice2.setText("Wait until the person at the door leaves to exit your apartment");
         ui.choice3.setText("Exit your apartment through you fire escape staircase outside your window");
+        ui.choice4.setText("");
 
         game.nextPosition1 = "phone";
         game.nextPosition2 = "frontDoorNoSoldier";
@@ -495,7 +625,7 @@ public class Story {
         ui.choice3.setText("");
 
         game.nextPosition1 = "exitAlleyRight";
-        game.nextPosition2 = "exitAlleyLeft";
+        game.nextPosition2 = "leftExitAlley";
 
     }
     public void exitAlleyRight() {
@@ -504,8 +634,8 @@ public class Story {
         ui.choice2.setText("Walk towards the convoy");
         ui.choice3.setText("");
 
-        game.nextPosition1 = "engageConvoy";
-        game.nextPosition2 = "exitAlleyLeft";
+        game.nextPosition1 = "exitAlleyLeft";
+        game.nextPosition2 = "engageConvoy";
     }
     public void engageConvoy() {
         ui.mainTextArea.setText("You start walking towards the convoy as you see a man coming out of an alley on the opposite side of the street.\nThe way he walks gives away he is probably armed with a rifle concealed under his Jacket\n\nWhat do you do");
@@ -515,7 +645,7 @@ public class Story {
 
         game.nextPosition1 = "safeConvoy";
         game.nextPosition2 = "runToTackle";
-        game.nextPosition3 = "exitAlleyLeft";
+        game.nextPosition3 = "leftExitAlley";
     }
     public void runToTackle() {
         ui.mainTextArea.setText("You sprint to him, only te see him toss a grenade at the convoy. The grenade lands as the guy opens fire.\n\nThe explosion triggers a chain explosion of the convoy trucks exploding. You get blown to ground from the shock. Before you can get up the street get swarmed by Zombies");
@@ -527,9 +657,10 @@ public class Story {
     }
 //    FRONTDOOR NO SOLDIER
     public void frontDoorNoSoldier() {
-        ui.mainTextArea.setText("You enter the hallway as the elevator goes back down. Your older female neighbour comes out of her apartment and asks:\n'Would you be a dear and help me down to the lobby in the elevator?'\n\nWhat do you do?");
+        ui.mainTextArea.setText("You enter the hallway as the elevator goes back down. Your older female neighbour comes out of her apartment and asks:\n'Would you be a dear and help me down to the lobby in the elevator?'\nThe elevator comes back up\n\nWhat do you do?");
         ui.choice1.setText("You leave her where she is standing and go down the stairs");
-        ui.choice2.setText("You help her to the elevator, wait till it comes back up and together enter the elevator");
+        ui.choice2.setText("You help her and take the elevator down");
+        ui.choice3.setText("");
 
         game.nextPosition1 = "leaveStaircase";
         game.nextPosition2 = "leaveElevator";
@@ -548,15 +679,53 @@ public class Story {
 
         game.nextPosition1 = "Death";
     }
-
+//    LEAVE STAIRCASE
     public void leaveStaircase() {
         ui.mainTextArea.setText("When you arrive downstairs and open the door to the entry hall you see the doorman dead at his desk.\n\nWhat do you do?");
         ui.choice1.setText("You walk to the front door and go outside");
         ui.choice2.setText("You walk to the doorman and search his body");
 
         game.nextPosition1 = "frontDoorConvoy";
+        game.nextPosition2 = "searchDoorMan";
     }
+    public void searchDoorMan() {
+        ui.mainTextArea.setText("You check the body of the doorman and in his inside pocket you find a car key.\n\nWhat do you do?");
+        ui.choice1.setText("Go to the front door to exit the apartment complex");
+        ui.choice2.setText("Take the stairs further down to the garage of the apartment complex");
 
+        game.nextPosition1 = "frontDoorConvoy";
+        game.nextPosition2 = "downToGarageDoorman";
+    }
+    public void downToGarageDoorman() {
+        ui.mainTextArea.setText("You walk in to the garage and continuously click on the key to find the car that belongs to the doorman.");
+        ui.choice1.setText(">");
+        ui.choice2.setText("");
+
+        game.nextPosition1 = "enterDoormanCar";
+    }
+    public void enterDoormanCar() {
+        ui.mainTextArea.setText("The car from the doorman unlocks 2 rows over. You walk to it and enter the car.\n\nWhat do you do?");
+        ui.choice1.setText("Call your brother");
+        ui.choice2.setText("Drive the car out of the garage");
+
+        game.nextPosition1 = "phone";
+        game.nextPosition2 = "driveAlone";
+    }
+    public void driveAlone() {
+        ui.mainTextArea.setText("You drive out of the garage and take a right in to the still standing convoy.\nA soldier comes walking up to you and goes: 'You can drive around the trucks, here is a map locating the quarantine zone. Drive there and you will be safe'\nHe hands over a map that shows where to go");
+        ui.choice1.setText("Drive to the quarantine zone");
+        ui.choice2.setText("Call your brother");
+
+        game.nextPosition1 = "driveToQuarantine";
+        game.nextPosition2 = "phone";
+    }
+    public void driveToQuarantine() {
+        ui.mainTextArea.setText("You start driving past the trucks. All of the sudden you hear screams coming from the soldiers, shots are being fired. An explosion at the back of the trucks hit and in a chain reactions the trucks explode. Driving next to it you car gets blasted in to the buildings. You lose consciousness");
+        ui.choice1.setText(">");
+        ui.choice2.setText("");
+
+        game.nextPosition1 = "Death";
+    }
 
 //    DEATH
     public void Death() {

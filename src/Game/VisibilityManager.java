@@ -22,6 +22,7 @@ public class VisibilityManager {
         //hide titleScreen
         ui.titleNamePanel.setVisible(false);
         ui.startButton.setVisible(false);
+        ui.startButtonPanel.setVisible(false);
         //show game screen - playerPanel
         ui.mainTextPanel.setVisible(true);
         ui.choiceButtonPanel.setVisible(true);
